@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三宮.dev イベント提案サイト</title>
+  <script src="scripts/main.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header-component></header-component>
+  <main>
+    <section class="discription" style="margin-bottom: 1rem;">
+      <p>
+        <span class="line-break">三宮.devのイベント提案・投票サイトへようこそ！</span>
+        開催して欲しいイベントがあれば、遠慮なく気軽に提案していってください
+      </p>
+    </section>
+    <event-proposal-list></event-proposal-list>
+  </main>
+
+  <script src="scripts/components/header-component.js"></script>
+  <script src="scripts/components/event-proposal.js"></script>
+  <script src="scripts/components/event-proposal-list.js" type="module"></script>
+</body>
+</html>
