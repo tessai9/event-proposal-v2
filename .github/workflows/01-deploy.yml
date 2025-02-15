@@ -1,0 +1,18 @@
+name: 01-deploy
+
+on:
+  push:
+    branches:
+      - main
+
+deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+    - name: Install Netlify CLI
+      run: npm install -g netlify-cli
+    - name: Deploy to Netlify
+      run: netlify deploy --prod
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
