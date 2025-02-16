@@ -16,8 +16,12 @@ class EventProposal extends HTMLElement {
         font-size: 16px;
         max-height: 60px;
       }
-      .vote-count {
+      .vote {
         margin-left: auto;
+        display: flex;
+        .vote-count {
+          margin-left: 0.5rem;
+        }
       }
       .proposal-content {
         padding: 1rem;
@@ -31,7 +35,10 @@ class EventProposal extends HTMLElement {
     <div class='proposal'>
       <div class='proposal-header'>
         <p class='proposal-title'></p>
-        <p class='vote-count'></p>
+        <p class='vote'>
+          <thumb-up-icon></thumb-up-icon>
+          <span class='vote-count'></span>
+        </p>
       </div>
       <div class='proposal-content d-none'></div>
     </div>
