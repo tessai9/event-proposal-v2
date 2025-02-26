@@ -1,4 +1,4 @@
-import { db } from "../storage.js";
+import { db } from "../db.js";
 
 export async function toggleVote(proposalId) {
   const voted = await isVoted(proposalId);
