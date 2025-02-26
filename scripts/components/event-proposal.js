@@ -1,8 +1,9 @@
+import { toggleVote } from '../repos/vote.js';
+
 class EventProposal extends HTMLElement {
   constructor() {
     super();
     this.shadow = this.attachShadow({mode: 'open'});
-
     this.template = document.createElement('template');
     this.template.innerHTML = `
     <style>
@@ -19,6 +20,9 @@ class EventProposal extends HTMLElement {
       .vote {
         margin-left: auto;
         display: flex;
+        .voted {
+          --icon-color: cyan;
+        }
         .vote-count {
           margin-left: 0.5rem;
         }
@@ -61,7 +65,13 @@ class EventProposal extends HTMLElement {
     });
     proposalElm.querySelector('.proposal-title').innerHTML = proposalTitle;
     proposalElm.querySelector('.proposal-content').innerHTML = proposalContent;
+    proposalElm.querySelector('thumb-up-icon').addEventListener('click', this.onIconClickHandler);
     proposalElm.querySelector('.vote-count').innerHTML = proposalVotes;
+  }
+
+  async onIconClickHandler() {
+    const proposalId = this.closest('.proposal').getAttribute('proposal-id');
+    await toggleVote(proposalId);
   }
 }
 
