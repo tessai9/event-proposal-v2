@@ -1,4 +1,4 @@
-import { toggleVote } from '../repos/vote.js';
+import { toggleVote } from '../repos/indexedDB/vote.js';
 
 class EventProposal extends HTMLElement {
   constructor() {
