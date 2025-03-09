@@ -1,3 +1,5 @@
+import { createProposal } from "../repos/spreadsheet/proposals.js";
+
 class ProposeDialog extends HTMLElement {
   constructor() {
     super();
@@ -5,6 +7,13 @@ class ProposeDialog extends HTMLElement {
     this.template = document.createElement('template');
     this.template.innerHTML = `
     <style>
+    .propose-button {
+      background-color: white;
+      border: 1px solid;
+      border-radius: calc(infinity * 1px);
+      padding: 1rem;
+      cursor: pointer;
+    }
     .propose-dialog {
       padding: 1rem;
       border: 1px solid gray;
@@ -42,6 +51,9 @@ class ProposeDialog extends HTMLElement {
       }
     }
     </style>
+    <button class='propose-button'>
+      イベントを提案する
+    </button>
     <dialog class='propose-dialog'>
       <div class='dialog-header'>
         新しくイベント案を追加します
@@ -49,7 +61,7 @@ class ProposeDialog extends HTMLElement {
       <div class='dialog-body'>
         <form method='dialog'>
           <input type='text' name='title' placeholder='イベントタイトル' class='event-title'>
-          <textarea name='overview' cols='30' rows='10' placeholder='イベント概要'></textarea>
+          <textarea name='overview' cols='30' rows='10' placeholder='イベント概要' class='event-overview'></textarea>
           <div class='form-buttons'>
             <button class='cancel-btn' value='cancel'>キャンセル</button>
             <button class='submit-btn' value='default'>提案する</button>
@@ -62,6 +74,33 @@ class ProposeDialog extends HTMLElement {
 
   connectedCallback() {
     this.shadow.appendChild(this.template.content.cloneNode(true));
+    const proposeBtn = this.shadowRoot.querySelector('.propose-button');
+    const dialog = this.shadowRoot.querySelector('.propose-dialog');
+    const submitBtn = dialog.querySelector('.submit-btn');
+
+    proposeBtn.addEventListener('click', () => {
+      dialog.showModal();
+    });
+    submitBtn.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const titleElm = dialog.querySelector('.event-title');
+      const overviewElm = dialog.querySelector('.event-overview');
+      const title = titleElm.value;
+      const overview = overviewElm.value;
+      if(!title || !overview) {
+        alert('タイトルと概要は必須です');
+        return;
+      }
+      const result = await createProposal({title, overview});
+      if(result) {
+        alert('提案しました');
+        titleElm.value = null;
+        overviewElm.value = null;
+        this.shadowRoot.querySelector('dialog').close();
+      }else{
+        alert('提案に失敗しました');
+      }
+    });
   }
 }
 
