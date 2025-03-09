@@ -32,5 +32,6 @@ export async function createProposal(proposal) {
     return true;
   } catch(error) {
     console.error('Failed to create proposal:', error);
+    return false;
   }
 }
