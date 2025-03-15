@@ -11,8 +11,7 @@ export async function getProposals() {
     }
     const resBody = await response.json();
     const data = resBody.data;
-    // TODO: voteを取得してセットする
-    const proposals = data.map((proposal) => new Proposal({...proposal, votes: 0}));
+    const proposals = data.map((proposal) => new Proposal(proposal));
 
     return proposals;
   } catch(error) {
