@@ -27,7 +27,7 @@ class EventProposal extends HTMLElement {
           margin-left: 0.5rem;
         }
       }
-      .proposal-content {
+      .proposal-overview {
         padding: 1rem;
         border: 1px solid #dcdcdc;
       }
@@ -44,7 +44,7 @@ class EventProposal extends HTMLElement {
           <span class='vote-count'></span>
         </p>
       </div>
-      <div class='proposal-content d-none'></div>
+      <div class='proposal-overview d-none'></div>
     </div>
     `;
   }
@@ -53,18 +53,18 @@ class EventProposal extends HTMLElement {
     this.shadow.appendChild(this.template.content.cloneNode(true));
     const proposalId = this.getAttribute('proposal-id');
     const proposalTitle = this.getAttribute('title');
-    const proposalContent = this.getAttribute('content');
+    const proposalOverview = this.getAttribute('overview');
     const proposalVotes = this.getAttribute('votes');
 
-    if(proposalId === null || proposalTitle === null || proposalContent === null) throw new Error('required parameter is missing');
+    if(proposalId === null || proposalTitle === null || proposalOverview === null) throw new Error('required parameter is missing');
 
     const proposalElm = this.shadowRoot.querySelector('.proposal');
     proposalElm.setAttribute('proposal-id', proposalId);
     proposalElm.querySelector('.proposal-header').addEventListener('click', () => {
-      proposalElm.querySelector('.proposal-content').classList.toggle('d-none');
+      proposalElm.querySelector('.proposal-overview').classList.toggle('d-none');
     });
     proposalElm.querySelector('.proposal-title').innerHTML = proposalTitle;
-    proposalElm.querySelector('.proposal-content').innerHTML = proposalContent;
+    proposalElm.querySelector('.proposal-overview').innerHTML = proposalOverview;
     proposalElm.querySelector('thumb-up-icon').addEventListener('click', this.onIconClickHandler);
     proposalElm.querySelector('.vote-count').innerHTML = proposalVotes;
   }
