@@ -1,4 +1,5 @@
-import { toggleVote } from '../repos/indexedDB/vote.js';
+import { isVoted, vote, cancelVote } from '../repos/indexedDB/vote.js';
+import { createVote, deleteVote } from '../repos/spreadsheet/votes.js';
 
 class EventProposal extends HTMLElement {
   constructor() {
@@ -71,7 +72,17 @@ class EventProposal extends HTMLElement {
 
   async onIconClickHandler() {
     const proposalId = this.closest('.proposal').getAttribute('proposal-id');
-    await toggleVote(proposalId);
+    const voted = await isVoted(proposalId);
+    if(voted) {
+      console.log('cancel')
+      await cancelVote(proposalId);
+      await deleteVote(proposalId);
+    } else {
+      console.log('vote')
+      await vote(proposalId);
+      await createVote(proposalId);
+    }
+    location.reload();
   }
 }
 

@@ -16,6 +16,7 @@ export async function getProposals() {
     return proposals;
   } catch(error) {
     console.error('Failed to fetch proposals:', error);
+    return [];
   }
 }
 

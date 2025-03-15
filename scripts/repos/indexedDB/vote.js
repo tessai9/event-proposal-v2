@@ -1,15 +1,6 @@
 import { db } from "../../db.js";
 
-export async function toggleVote(proposalId) {
-  const voted = await isVoted(proposalId);
-  if(voted) {
-    await cancelVote(proposalId);
-  } else {
-    await vote(proposalId);
-  }
-};
-
-async function isVoted(proposalId) {
+export async function isVoted(proposalId) {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(['votes'], 'readonly');
     const store = transaction.objectStore('votes');
@@ -25,7 +16,7 @@ async function isVoted(proposalId) {
   });
 };
 
-async function vote(proposalId) {
+export async function vote(proposalId) {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(['votes'], 'readwrite');
     const store = transaction.objectStore('votes');
@@ -40,7 +31,7 @@ async function vote(proposalId) {
   });
 };
 
-async function cancelVote(proposalId) {
+export async function cancelVote(proposalId) {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(['votes'], 'readwrite');
     const store = transaction.objectStore('votes');
