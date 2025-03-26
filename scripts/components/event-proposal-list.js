@@ -1,4 +1,3 @@
-import { Proposal } from "../models/Proposal.js";
 import { getProposals } from "../repos/spreadsheet/proposals.js";
 
 class EventProposalList extends HTMLElement {
@@ -28,7 +27,7 @@ class EventProposalList extends HTMLElement {
         const elm = document.createElement('event-proposal');
         elm.setAttribute('proposal-id', proposal.id);
         elm.setAttribute('title', proposal.title);
-        elm.setAttribute('content', proposal.content);
+        elm.setAttribute('overview', proposal.overview);
         elm.setAttribute('votes', proposal.votes);
         listElm.appendChild(elm);
       });
@@ -36,13 +35,9 @@ class EventProposalList extends HTMLElement {
   }
 
   async fetchEventProposals() {
-    // TODO: リリース時にはコメントアウトを外す
-    // const proposals = await getProposals();
+    const proposals = await getProposals();
 
-    return [
-      new Proposal({id: '1', title: 'COBOL体験会', content: 'COBOLを体験してみようの会', votes: 3}),
-      new Proposal({id: '2', title: 'Golang LT大会', content: 'Go言語についてのLT大会', votes: 1}),
-    ];
+    return proposals;
   }
 }
 

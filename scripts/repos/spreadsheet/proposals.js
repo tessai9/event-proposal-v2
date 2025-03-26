@@ -1,4 +1,5 @@
 import { WEB_APP_URL } from "../../constants.js";
+import { Proposal } from "../../models/proposal.js";
 
 const params = new URLSearchParams({ sheet: 'proposals' });
 
@@ -10,10 +11,12 @@ export async function getProposals() {
     }
     const resBody = await response.json();
     const data = resBody.data;
-    return data;
+    const proposals = data.map((proposal) => new Proposal(proposal));
+
+    return proposals;
   } catch(error) {
     console.error('Failed to fetch proposals:', error);
-    return null;
+    return [];
   }
 }
 
