@@ -24,21 +24,31 @@ class EventProposalList extends HTMLElement {
   }
 
   connectedCallback() {
-    this.shadow.appendChild(this.template.content.cloneNode(true))
+    this.shadow.appendChild(this.template.content.cloneNode(true));
+    this.listElm = this.shadowRoot.querySelector('.event-proposal-list'); // Store list element reference
 
-    const listElm = this.shadowRoot.querySelector('.event-proposal-list');
+    this.renderProposals(); // Initial render
 
-    this.fetchEventProposals().then((proposals) => {
-      proposals.forEach((proposal) => {
-        const elm = document.createElement('event-proposal');
-        proposal.overview = proposal.overview.replace(/\n/g, '<br>');
+    // Listen for the custom event dispatched by propose-dialog
+    document.addEventListener('proposal-submitted', () => {
+      this.renderProposals(); // Re-render the list
+    });
+  }
 
-        elm.setAttribute('proposal-id', proposal.id);
-        elm.setAttribute('title', proposal.title);
-        elm.setAttribute('overview', proposal.overview);
-        elm.setAttribute('votes', proposal.votes);
-        listElm.appendChild(elm);
-      });
+  async renderProposals() {
+    // Clear existing proposals before rendering new ones
+    this.listElm.innerHTML = '';
+
+    const proposals = await this.fetchEventProposals();
+    proposals.forEach((proposal) => {
+      const elm = document.createElement('event-proposal');
+      proposal.overview = proposal.overview.replace(/\n/g, '<br>');
+
+      elm.setAttribute('proposal-id', proposal.id);
+      elm.setAttribute('title', proposal.title);
+      elm.setAttribute('overview', proposal.overview);
+      elm.setAttribute('votes', proposal.votes);
+      this.listElm.appendChild(elm);
     });
   }
 

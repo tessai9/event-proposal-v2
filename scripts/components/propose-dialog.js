@@ -96,6 +96,8 @@ class ProposeDialog extends HTMLElement {
       const result = await createProposal({title, overview});
       if(result) {
         alert('提案しました');
+        // Dispatch custom event to notify parent/sibling components
+        this.dispatchEvent(new CustomEvent('proposal-submitted', { bubbles: true, composed: true }));
         titleElm.value = null;
         overviewElm.value = null;
         this.shadowRoot.querySelector('dialog').close();
