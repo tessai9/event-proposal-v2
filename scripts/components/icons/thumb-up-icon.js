@@ -35,6 +35,10 @@ class ThumbUpIcon extends HTMLElement {
       </svg>
     `;
   }
+
+  switchToVoted() {
+    this.shadowRoot.querySelector('svg').style.setProperty('--icon-color', 'black');
+  }
 }
 
 customElements.define('thumb-up-icon', ThumbUpIcon);

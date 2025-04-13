@@ -21,9 +21,6 @@ class EventProposal extends HTMLElement {
       .vote {
         margin-left: auto;
         display: flex;
-        .voted {
-          --icon-color: cyan;
-        }
         .vote-count {
           margin-left: 0.5rem;
         }
@@ -67,6 +64,10 @@ class EventProposal extends HTMLElement {
     proposalElm.querySelector('.proposal-title').innerHTML = proposalTitle;
     proposalElm.querySelector('.proposal-overview').innerHTML = proposalOverview;
     proposalElm.querySelector('thumb-up-icon').addEventListener('click', this.onIconClickHandler);
+    (async() => {
+      const voted = await isVoted(proposalId);
+      if(voted) proposalElm.querySelector('thumb-up-icon').switchToVoted();
+    })();
     proposalElm.querySelector('.vote-count').innerHTML = proposalVotes;
   }
 
