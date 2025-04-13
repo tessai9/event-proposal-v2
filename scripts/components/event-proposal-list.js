@@ -31,6 +31,8 @@ class EventProposalList extends HTMLElement {
     this.fetchEventProposals().then((proposals) => {
       proposals.forEach((proposal) => {
         const elm = document.createElement('event-proposal');
+        proposal.overview = proposal.overview.replace(/\n/g, '<br>');
+
         elm.setAttribute('proposal-id', proposal.id);
         elm.setAttribute('title', proposal.title);
         elm.setAttribute('overview', proposal.overview);
