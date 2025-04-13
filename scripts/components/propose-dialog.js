@@ -14,6 +14,7 @@ class ProposeDialog extends HTMLElement {
       padding: 1rem;
       cursor: pointer;
       font-size: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     }
     .propose-dialog {
       padding: 1rem;

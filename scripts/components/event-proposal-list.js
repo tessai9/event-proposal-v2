@@ -10,7 +10,7 @@ class EventProposalList extends HTMLElement {
     .event-proposal-list {
       display: flex;
       flex-direction: column;
-      gap: 10px 0px;
+      gap: 16px 0px;
       width: 800px;
     }
     @media (max-width: 900px) {

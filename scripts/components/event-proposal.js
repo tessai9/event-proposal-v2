@@ -10,6 +10,7 @@ class EventProposal extends HTMLElement {
     <style>
     .proposal {
       width: 100%;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
       .proposal-header {
         display: flex;
