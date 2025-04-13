@@ -13,6 +13,11 @@ class ThumbUpIcon extends HTMLElement {
           width: 100%;
           height: 100%;
           fill: var(--icon-color, white); /* デフォルト色、未指定時は黒 */
+
+          transition: transform 0.3s;
+          &:hover {
+            transform: scale(1.2);
+          }
         }
         path {
           /* SVG pathのスタイルは必要に応じて調整 */
