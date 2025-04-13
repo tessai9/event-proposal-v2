@@ -9,6 +9,8 @@ class EventProposal extends HTMLElement {
     this.template.innerHTML = `
     <style>
     .proposal {
+      width: 100%;
+
       .proposal-header {
         display: flex;
         align-items: center;
