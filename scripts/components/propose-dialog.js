@@ -13,6 +13,7 @@ class ProposeDialog extends HTMLElement {
       border-radius: calc(infinity * 1px);
       padding: 1rem;
       cursor: pointer;
+      font-size: 15px;
     }
     .propose-dialog {
       padding: 1rem;
