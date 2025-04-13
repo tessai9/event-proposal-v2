@@ -1,3 +1,4 @@
+import './components/loading-component.js'; // Import loading component to register it
 import { openDB } from "./db.js";
 
 window.addEventListener('DOMContentLoaded', async () => {

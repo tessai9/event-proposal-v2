@@ -36,10 +36,12 @@ class EventProposalList extends HTMLElement {
   }
 
   async renderProposals() {
-    // Clear existing proposals before rendering new ones
-    this.listElm.innerHTML = '';
+    document.dispatchEvent(new CustomEvent('show-loading')); // Dispatch show event
+    try {
+      // Clear existing proposals before rendering new ones
+      this.listElm.innerHTML = '';
 
-    const proposals = await this.fetchEventProposals();
+      const proposals = await this.fetchEventProposals();
     proposals.forEach((proposal) => {
       const elm = document.createElement('event-proposal');
       proposal.overview = proposal.overview.replace(/\n/g, '<br>');
@@ -50,6 +52,9 @@ class EventProposalList extends HTMLElement {
       elm.setAttribute('votes', proposal.votes);
       this.listElm.appendChild(elm);
     });
+    } finally {
+      document.dispatchEvent(new CustomEvent('hide-loading')); // Dispatch hide event
+    }
   }
 
   async fetchEventProposals() {
