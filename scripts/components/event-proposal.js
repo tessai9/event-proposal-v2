@@ -86,7 +86,7 @@ class EventProposal extends HTMLElement {
       await vote(proposalId);
       await createVote(proposalId);
     }
-    location.reload();
+    this.dispatchEvent(new CustomEvent('proposal-submitted', { bubbles: true, composed: true }));
   }
 }
 
