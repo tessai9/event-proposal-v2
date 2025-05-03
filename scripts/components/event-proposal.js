@@ -87,13 +87,18 @@ class EventProposal extends HTMLElement {
     event.stopPropagation();
     const proposalElm = this.closest('.proposal');
     const proposalId = proposalElm.getAttribute('proposal-id');
-    const voted = await isVoted(proposalId);
-    if(voted) {
-      await cancelVote(proposalId);
-      await deleteVote(proposalId);
-    } else {
-      await vote(proposalId);
-      await createVote(proposalId);
+    document.dispatchEvent(new CustomEvent('show-loading')); // Dispatch show event
+    try {
+      const voted = await isVoted(proposalId);
+      if(voted) {
+        await cancelVote(proposalId);
+        await deleteVote(proposalId);
+      } else {
+        await vote(proposalId);
+        await createVote(proposalId);
+      }
+    } finally {
+      document.dispatchEvent(new CustomEvent('hide-loading')); // Dispatch hide event
     }
     this.dispatchEvent(new CustomEvent('proposal-submitted', { bubbles: true, composed: true }));
   }
