@@ -41,17 +41,24 @@ class EventProposalList extends HTMLElement {
       // Clear existing proposals before rendering new ones
       this.listElm.innerHTML = '';
 
-      const proposals = await this.fetchEventProposals();
-    proposals.forEach((proposal) => {
-      const elm = document.createElement('event-proposal');
-      proposal.overview = proposal.overview.replace(/\n/g, '<br>');
+      // Get proposalId from URL hash (e.g., #123 -> 123)
+      const proposalIdFromHash = location.hash.substring(1);
 
-      elm.setAttribute('proposal-id', proposal.id);
-      elm.setAttribute('title', proposal.title);
-      elm.setAttribute('overview', proposal.overview);
-      elm.setAttribute('votes', proposal.votes);
-      this.listElm.appendChild(elm);
-    });
+      const proposals = await this.fetchEventProposals();
+      proposals.forEach((proposal) => {
+        const elm = document.createElement('event-proposal');
+        proposal.overview = proposal.overview.replace(/\n/g, '<br>');
+
+        elm.setAttribute('proposal-id', proposal.id);
+        elm.setAttribute('title', proposal.title);
+        // Set show-overview attribute only if the proposal ID matches the hash
+        if (proposal.id.toString() === proposalIdFromHash) {
+          elm.setAttribute('show-overview', 'true');
+        }
+        elm.setAttribute('overview', proposal.overview);
+        elm.setAttribute('votes', proposal.votes);
+        this.listElm.appendChild(elm);
+      });
     } finally {
       document.dispatchEvent(new CustomEvent('hide-loading')); // Dispatch hide event
     }
