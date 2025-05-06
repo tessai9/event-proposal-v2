@@ -1,6 +1,7 @@
 import { isVoted, vote, cancelVote } from '../repos/indexedDB/vote.js';
 import { createVote, deleteVote } from '../repos/spreadsheet/votes.js';
-import './icons/share-icon.js'; // Import the share icon
+import './icons/thumb-up-icon.js';
+import './icons/share-icon.js';
 
 class EventProposal extends HTMLElement {
   constructor() {
