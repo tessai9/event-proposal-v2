@@ -32,8 +32,8 @@ class HeaderComponent extends HTMLElement {
           display: flex;
           gap: 1rem;
           font-size: 0.8rem;
-          color: #333;
           a {
+            color: #333;
             text-decoration: none;
           }
         }
