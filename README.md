@@ -1,6 +1,6 @@
 
 <div style="text-align: center">
-  <img src="./images/logo_c.svg" width=300 />
+  <img src="./assets/logo.svg" width=300 />
 </div>
 
 ---
