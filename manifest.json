@@ -1,0 +1,23 @@
+{
+  "name": "三宮.dev イベント提案・投票アプリ",
+  "short_name": "イベント提案・投票",
+  "description": "三宮.devで開催して欲しいイベントを提案したり投票できるコミュニティアプリです",
+  "icons": [
+    {
+      "src": "assets/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "categories": [
+    "productivity",
+    "social",
+    "community",
+    "events"
+  ],
+  "orientation": "portrait",
+  "theme_color": "#E23A00"
+}
